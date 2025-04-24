@@ -1,0 +1,53 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../generated/prisma"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Pets {
+  id                  String     @id @default(cuid())
+  name                String
+  birth               DateTime
+  dailyFoodAmount     Float
+  lastMeal            Float      @default(0)
+  weight              Float      @default(0)
+  foodName            String     @default("")
+  feedingTimes        String     @default("[]") // JSON string array of feeding times in "HH:MM" format
+  lastFeedingDateTime DateTime? // Last date and time the pet was fed
+  users               UserPets[]
+}
+
+model FoodTime {
+  id   String @id @default(cuid())
+  time String
+}
+
+model User {
+  id                     String     @id @default(cuid())
+  email                  String     @unique
+  password               String
+  name                   String
+  pets                   UserPets[]
+  emailVerified          Boolean    @default(false)
+  emailVerificationToken String?
+  resetToken             String?
+  resetTokenExpiry       DateTime?
+  linkingCode            String?    @unique // Format: XXXX-XXXX-XXXX
+}
+
+model UserPets {
+  id     String @id @default(cuid())
+  user   User   @relation(fields: [userId], references: [id])
+  userId String
+  pet    Pets   @relation(fields: [petId], references: [id])
+  petId  String
+
+  @@unique([userId, petId])
+}
