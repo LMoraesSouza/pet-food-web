@@ -1,6 +1,6 @@
 export const authConfig = {
     jwt: {
         secret: "default",
-        expiresIn: "1d",
+        expiresIn: "1Hr",
     }
 }
