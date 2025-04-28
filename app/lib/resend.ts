@@ -1,3 +1,4 @@
+import "server-only"
 import { Resend } from 'resend';
 
 console.log(process.env.RESEND_API_KEY)

@@ -1,11 +1,9 @@
 'use client'
 import { useState } from 'react'
-import { login } from '@/app/lib/axios'
+import { signUp } from '@/app/lib/axios'
 import { useRouter } from 'next/navigation'
 import Link from 'next/link'
 import { Button } from '@/app/components/button'
-import resend from '@/app/lib/resend'
-import { error } from 'console'
 
 interface FormData {
     name: string;
@@ -15,7 +13,7 @@ interface FormData {
 }
 
 export default function Login() {
-    // const router = useRouter()
+    const router = useRouter()
     const [formData, setFormData] = useState<FormData>({
         name: '',
         email: '',
@@ -26,33 +24,25 @@ export default function Login() {
     const [isLoading, setIsLoading] = useState<boolean>(false)
 
     const handleSubmit = async (e: React.FormEvent) => {
-        console.log('oiii')
-        const { data, error } = await resend.emails.send({
-            from: 'Acme <petfood.suporte@gmail.com>',
-            to: ['okilor.lukas@gmail.com'],
-            subject: 'Teste',
-            text: 'oieee'
-          });
+        e.preventDefault();
+        setError('')
+        setIsLoading(true)
 
-        console.log(data, error)
-        // e.preventDefault()
-        // setError('')
-        // setIsLoading(true)
+        try {
+            const result = await signUp(formData.name, formData.email, formData.password)
+            console.log(result)
+            if (result.email) {
+                router.push('/login');
 
-        // try {
-        //     const result = await login(formData.email, formData.password)
-            
-        //     if (result.success) {
-        //         router.push('/dashboard')
-        //     } else {
-        //         setError(result.error?.message || 'Invalid email or password')
-        //     }
-        // } catch (error) {
-        //     console.log(error)
-        //     setError('Ocorreu um erro inesperado')
-        // } finally {
-        //     setIsLoading(false)
-        // }
+            } else {
+                setError('Erro ao criar usuario')
+            }
+        } catch (error) {
+            console.log(error)
+            setError('Ocorreu um erro inesperado')
+        } finally {
+            setIsLoading(false)
+        }
     }
 
     return (

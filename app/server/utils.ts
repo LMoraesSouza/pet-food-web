@@ -18,5 +18,5 @@ export const parseFeedingTimes = (pet: Pets) => {
 }
 
 export async function sendEmail(email: string, type: string, token: string) {
-
+    console.log('mandou email', email, type, token)
 }

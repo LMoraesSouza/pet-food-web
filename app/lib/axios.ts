@@ -10,6 +10,14 @@ interface AuthResponse {
     };
 }
 
+interface SinUpResponse {
+    email: string;
+    name: string;
+    linkingCode: string;
+    emailVerificationToken: string;
+    emailVerified: boolean;
+}
+
 interface ErrorResponse {
     message: string;
     status: number;
@@ -122,9 +130,9 @@ export const login = async (email: string, password: string): Promise<{
     }
 };
 
-export const signUp = async (name: string, email: string, password: string): Promise<AuthResponse> => {
+export const signUp = async (name: string, email: string, password: string): Promise<SinUpResponse> => {
     try {
-        const response = await api.post<AuthResponse>('/users/register', {
+        const response = await api.post<SinUpResponse>('/users/register', {
             name,
             email,
             password
