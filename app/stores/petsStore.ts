@@ -4,7 +4,7 @@ export interface Pet {
   id: string;
   name: string;
   dailyFoodAmount: string;
-  lastMeal: Number;
+  lastMeal: number;
   feedingTimes: string[];
   lastFeedingDateTime: Date;
   birth: Date;
@@ -26,20 +26,20 @@ export const usePetsStore = create<PetsState>((set) => ({
     set({ isLoading: true });
 
     try {
-        const response = await fetch("/api/users/${userId}/pets", {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            }
-        });
+      const response = await fetch("/api/users/${userId}/pets", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        }
+      });
 
-        const data = await response.json();
-        
-        set({ pets: data });
+      const data = await response.json();
+
+      set({ pets: data });
     } catch (error) {
-        console.error('Error loading pets:', error);
+      console.error('Error loading pets:', error);
     } finally {
-        set({ isLoading: false });
+      set({ isLoading: false });
     }
   },
 })); 
