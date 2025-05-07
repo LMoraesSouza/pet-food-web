@@ -12,7 +12,7 @@ export default function Home(){
 
             <div>
                 <PetCard 
-                    foodTimeArray={['10:00', '12:00', '14:00']}
+                    foodTimeArray={['10:00', '12:00', '14:00', '18:00', '20:00']}
                     picture={fotoProvisoriaLuci}
                     petInfo={
                         {   
@@ -20,7 +20,7 @@ export default function Home(){
                             name: 'Luci', 
                             dailyFoodAmount: '70g', 
                             lastMeal: 10, 
-                            feedingTimes: ['10:00', '12:00', '14:00'], 
+                            feedingTimes: ['10:00', '12:00', '14:00', '18:00', '20:00'], 
                             lastFeedingDateTime: new Date, 
                             birth: new Date, 
                             foodName: 'Ração Luci', 
@@ -30,7 +30,7 @@ export default function Home(){
                 />
 
                 <PetCard 
-                    foodTimeArray={['10:00', '12:00', '14:00']}
+                    foodTimeArray={['10:00', '12:00', '14:00', '18:00', '20:00']}
                     picture={fotoProvisoriaShiva}
                     petInfo={
                         {   
@@ -38,7 +38,7 @@ export default function Home(){
                             name: 'Shiva', 
                             dailyFoodAmount: '45g', 
                             lastMeal: 10, 
-                            feedingTimes: ['10:00', '12:00', '14:00'], 
+                            feedingTimes: ['10:00', '12:00', '14:00', '18:00', '20:00'], 
                             lastFeedingDateTime: new Date, 
                             birth: new Date, 
                             foodName: 'Ração Shiva', 
