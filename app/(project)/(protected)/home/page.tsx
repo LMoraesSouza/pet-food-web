@@ -10,7 +10,7 @@ export default function Home(){
                 Olá! Não se esqueça de alimentar seus pets 🐶🐱
             </h2>
 
-            <div>
+            <div className="flex flex-col gap-5">
                 <PetCard 
                     foodTimeArray={['10:00', '12:00', '14:00', '18:00', '20:00']}
                     picture={fotoProvisoriaLuci}

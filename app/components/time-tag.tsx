@@ -1,4 +1,5 @@
 import moment from "moment"
+import { useState } from "react"
 
 type FoodTimeProps = {
     time: string
@@ -13,13 +14,15 @@ export function TimeTag({
     lastFeedingDateTime,
     getLastMeal
 }: FoodTimeProps){
-    console.log(petName, getLastMeal)
+    const [showModal, setShowModal] = useState(false)
+
+    console.log(petName)
     const getStatus = (): 'late' | 'eaten' | 'future' => {
         const now = moment()
         const feedingTime = moment(time, "HH:mm")
         const today = moment().format("YYYY-MM-DD")
         const feedingDateTime = moment(`${today} ${time}`, "YYYY-MM-DD HH:mm")
-        
+        getLastMeal()
         // Check if the feeding has been done today
         const lastFeedingDate = moment(lastFeedingDateTime)
         const isToday = lastFeedingDate.isSame(moment(), 'day')
@@ -37,6 +40,11 @@ export function TimeTag({
         // If the feeding time is in the future
         return 'future'
     }
+
+    function handleOpenModal() {
+        console.log('mostrou modal', showModal)
+        setShowModal(true)
+    }
     
     const getStatusStyles = () => {
         const status = getStatus()
@@ -53,10 +61,11 @@ export function TimeTag({
     }
 
     return (
-        <div 
-            className={`px-2 py-1 rounded-[6px] inline-block cursor-pointer ${getStatusStyles()}`}
-        >
-            {time}
-        </div>
+            <span 
+                onClick={handleOpenModal}
+                className={`py-1 flex w-20 rounded-[6px] items-center justify-center cursor-pointer  ${getStatusStyles()}`}
+            >
+                {time}
+            </span>
     )
 }
