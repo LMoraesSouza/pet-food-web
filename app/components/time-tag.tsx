@@ -54,18 +54,21 @@ export function TimeTag({
             case 'eaten':
                 return 'bg-[#BDD4AB]'
             case 'future':
-                return 'bg-[#F6DEB7]'
+                return 'bg-[#EFE7E7]'
             default:
                 return 'bg-gray-200'
         }
     }
 
     return (
+        <>
+            
             <span 
                 onClick={handleOpenModal}
                 className={`py-1 flex w-20 rounded-[6px] items-center justify-center cursor-pointer  ${getStatusStyles()}`}
             >
                 {time}
             </span>
+        </>
     )
 }
