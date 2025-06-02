@@ -1,3 +1,4 @@
+import { X } from "@phosphor-icons/react"
 import moment from "moment"
 import { useState } from "react"
 
@@ -62,7 +63,19 @@ export function TimeTag({
 
     return (
         <>
-            
+            {showModal && (
+                <div className="fixed inset-0 bg-black/50 flex items-center justify-center z-50">
+                    <div className="bg-white rounded-lg w-full max-w-lg overflow-hidden shadow-xl">
+                        <div className="flex justify-between items-center p-4 border-b">
+                            <h2 className="text-xl font-medium">Edit pet info</h2>
+                            <button onClick={() => setShowModal(false)} className="text-gray-500 hover:text-gray-700">
+                                <X className="h-5 w-5" />
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            )}
+
             <span 
                 onClick={handleOpenModal}
                 className={`py-1 flex w-20 rounded-[6px] items-center justify-center cursor-pointer  ${getStatusStyles()}`}

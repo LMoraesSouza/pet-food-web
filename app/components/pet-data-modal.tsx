@@ -114,7 +114,7 @@ export function PetDataModal({
                   </div>
                   <div>
                     
-                    <div className="flex">
+                    <div className="">
                       <Input
                         label="Weight"
                         type="text"
@@ -122,8 +122,8 @@ export function PetDataModal({
                         value={petData.weight}
                         onChange={handleChange}
                         placeholder="0.00"
+                        adornment={petData.weightUnit}
                       />
-                      <span className="ml-2 self-center text-gray-500">{petData.weightUnit}</span>
                     </div>
                   </div>
                 </div>
@@ -150,7 +150,7 @@ export function PetDataModal({
               <div className="grid grid-cols-2 gap-4">
                 
                   
-                  <div className="flex">
+                  <div className="">
                     <Input
                       label="Portion"
                       type="text"
@@ -158,8 +158,9 @@ export function PetDataModal({
                       value={petData.portion}
                       onChange={handleChange}
                       placeholder="0.00"
+                      adornment={petData.portionUnit}
                     />
-                    <span className="ml-2 self-center text-gray-500">{petData.portionUnit}</span>
+                    
                   </div>
                 <div>
                   <Input
