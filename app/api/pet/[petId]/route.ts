@@ -2,33 +2,28 @@ import { prisma } from "@/app/server/script";
 import { parseFeedingTimes } from "@/app/server/utils";
 import { NextRequest, NextResponse } from "next/server";
 
-export async function GET(req: NextRequest, { params }: { params: Promise<{ userId: string }> }) {
+export async function GET(req: NextRequest, { params }: { params: Promise<{ userId: string, petId: string }> }) {
     try {
         const userId = (await params).userId;
+        const petId = (await params).petId;
 
         if (!userId) {
             return NextResponse.json({ error: "User ID is required" }, { status: 500 });
         }
 
-        const user = await prisma.user.findUnique({
-            where: { id: userId },
-            include: {
-                pets: {
-                    include: {
-                        pet: true
-                    }
-                }
-            }
+        const pet = await prisma.pets.findUnique({
+            where: { id: petId },
+
         })
 
-        if (!user) {
+        if (!pet) {
             return NextResponse.json({ error: "User not found" }, { status: 500 });
 
         }
 
-        const pets = user.pets.map(relation => parseFeedingTimes(relation.pet));
+        const parsedPet = parseFeedingTimes(pet)
 
-        return NextResponse.json({ pets }, { status: 200 });
+        return NextResponse.json({ parsedPet }, { status: 200 });
     } catch (error) {
         console.log(error)
         return NextResponse.json({ error: "Failed fetching pets" }, { status: 500 });

@@ -17,6 +17,7 @@ export function PetCard({
     foodTimeArray
 }: PetCardTypes) {
     const [showModal, setShowModal] = useState(false)
+    const [petId, setPetId] = useState('')
 
     console.log(petInfo, picture, foodTimeArray)
 
@@ -27,7 +28,8 @@ export function PetCard({
         return `${portion}${unit} / porção`
     }
 
-    function handleOpenModal() {
+    function handleOpenModal(petId: string) {
+        setPetId(petId)
         setShowModal(true)
     }
    
@@ -35,7 +37,7 @@ export function PetCard({
     return (
         <>
             <div className='flex p-5 border-[#EFE7E7] rounded-2xl border-[1px] bg-[#F5F0F0] gap-6' >
-                <div className="flex gap-6 flex-col cursor-pointer" onClick={handleOpenModal} >
+                <div className="flex gap-6 flex-col cursor-pointer" onClick={() => handleOpenModal(petInfo.id)} >
                     <Image 
                         src={picture} 
                         alt="pet" 
@@ -64,6 +66,7 @@ export function PetCard({
                 isOpen={showModal}
                 onClose={() => setShowModal(false)}
                 onSave={() => console.log('salvou')}
+                petId={petId}
                 onDelete={() => console.log('deletou')}
             />
         </>

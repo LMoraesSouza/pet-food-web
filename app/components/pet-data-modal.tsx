@@ -6,6 +6,7 @@ import { useState, useEffect } from "react"
 import { X } from "@phosphor-icons/react"
 import Image from "next/image"
 import { Input } from "./input"
+import { getPetById } from "../lib/axios"
 
 interface PetModalProps {
   isOpen: boolean
@@ -13,6 +14,7 @@ interface PetModalProps {
   onSave: (petData: PetData) => void
   onDelete: () => void
   initialData?: PetData
+  petId: string
 }
 
 interface PetData {
@@ -32,6 +34,7 @@ export function PetDataModal({
     onClose, 
     onSave, 
     onDelete, 
+    petId,
     initialData 
 }: PetModalProps) {
   const [petData, setPetData] = useState<PetData>({
@@ -49,6 +52,9 @@ export function PetDataModal({
   useEffect(() => {
     if (initialData) {
       setPetData(initialData)
+      getPetById(petId).then((pet) => {
+        setPetData(pet)
+      })
     }
   }, [initialData])
 

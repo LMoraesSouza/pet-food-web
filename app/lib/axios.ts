@@ -153,8 +153,14 @@ export const signUp = async (name: string, email: string, password: string): Pro
 
 interface Pet {
     id: string;
+    lastFeedingDateTime: Date | null;
+    weight: number;
+    foodName: string;
     name: string;
-    // Add other pet properties as needed
+    birth: Date;
+    dailyFoodAmount: number;
+    lastMeal: number;
+    feedingTimes: string;
 }
 
 export const getMyPets = async (userId: string): Promise<Pet[]> => {
@@ -173,6 +179,23 @@ export const getMyPets = async (userId: string): Promise<Pet[]> => {
             throw new Error(error.response?.data?.message || 'Failed to fetch pets');
         }
         throw new Error('An unexpected error occurred while fetching pets');
+    }
+};
+
+export const getPetById = async (petId: string): Promise<Pet> => {
+    try {
+        const response = await api.get<Pet>(`pets/${petId}`);
+        return response.data;
+    } catch (error) {
+        if (axios.isAxiosError(error)) {
+            console.error('Error fetching pet by ID:', error.message);
+            if (error.response) {
+                console.error('Response data:', error.response.data);
+                console.error('Response status:', error.response.status);
+            }
+            throw new Error(error.response?.data?.message || 'Failed to fetch pet');
+        }
+        throw new Error('An unexpected error occurred while fetching pet');
     }
 };
 
